@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UtilityCraft | Advanced Minecraft Tools</title>
+    <title>UtilityCraft | Minecraft Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Silkscreen&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Modern CSS Variables & Theme */
+        /* "Deepslate & Emerald" Theme - Neo-Brutalist Gaming UI */
         :root {
-            --bg-base: #0a0a0c;
-            --bg-panel: #16161a;
-            --bg-input: #24242b;
-            --mc-green: #55FF55;
-            --mc-green-glow: rgba(85, 255, 85, 0.2);
-            --mc-gold: #FFAA00;
-            --text-main: #f0f0f0;
-            --text-muted: #8e8e9f;
-            --border-color: #2a2a35;
+            --bg-base: #18181b;       /* Zinc 900 */
+            --bg-panel: #27272a;      /* Zinc 800 */
+            --bg-input: #111113;      /* Almost black */
+            --border-main: #3f3f46;   /* Zinc 700 */
+            --border-hard: #000000;
+            --accent: #10b981;        /* Emerald Green */
+            --accent-hover: #059669;
+            --text-main: #e4e4e7;     /* Zinc 200 */
+            --text-muted: #a1a1aa;    /* Zinc 400 */
+            --mc-gold: #fbbf24;
         }
 
-        /* Global Reset & Typography */
         * { box-sizing: border-box; }
+        
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-base);
             color: var(--text-main);
             margin: 0;
@@ -29,83 +34,87 @@
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
+            /* Subtle dot pattern background */
+            background-image: radial-gradient(var(--border-main) 1px, transparent 0);
+            background-size: 20px 20px;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); border-left: 2px solid var(--border-hard); }
+        ::-webkit-scrollbar-thumb { background: var(--border-main); border: 2px solid var(--border-hard); }
 
         /* Header */
         header {
             background-color: var(--bg-panel);
-            padding: 15px 30px;
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-bottom: 3px solid var(--border-hard);
             z-index: 10;
         }
+        
         header h1 {
+            font-family: 'Silkscreen', cursive;
             margin: 0;
-            color: var(--mc-green);
+            color: var(--text-main);
             font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px var(--mc-green-glow);
+            letter-spacing: -1px;
         }
-        header span { color: var(--text-muted); font-size: 14px; }
+        
+        header h1 span { color: var(--accent); }
+        .version-tag { font-family: 'JetBrains Mono', monospace; color: var(--text-muted); font-size: 13px; font-weight: 600; }
 
         /* Layout Structure */
-        .app-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
+        .app-container { display: flex; flex: 1; overflow: hidden; }
 
         /* Sidebar Navigation */
         nav {
-            width: 280px;
+            width: 260px;
             background-color: var(--bg-panel);
-            border-right: 1px solid var(--border-color);
+            border-right: 3px solid var(--border-hard);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            padding: 15px 10px;
+            padding: 24px 16px;
             flex-shrink: 0;
         }
+
         .nav-category {
-            font-size: 12px;
+            font-family: 'Silkscreen', cursive;
+            font-size: 11px;
             color: var(--text-muted);
             text-transform: uppercase;
+            margin: 20px 0 8px 4px;
             letter-spacing: 1px;
-            margin: 15px 0 5px 15px;
-            font-weight: bold;
         }
+        .nav-category:first-child { margin-top: 0; }
+
         nav button {
             background: transparent;
-            border: none;
+            border: 2px solid transparent;
             color: var(--text-main);
-            padding: 12px 15px;
+            padding: 10px 12px;
             margin-bottom: 4px;
             text-align: left;
             font-size: 14px;
-            font-weight: 500;
-            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transition: all 0.1s ease;
+            font-family: 'Inter', sans-serif;
         }
-        nav button:hover { background-color: rgba(255, 255, 255, 0.05); }
+
+        nav button:hover {
+            border-color: var(--border-main);
+            background-color: var(--bg-base);
+        }
+
         nav button.active {
-            background-color: var(--mc-green-glow);
-            color: var(--mc-green);
-            border-left: 3px solid var(--mc-green);
+            background-color: var(--accent);
+            color: #000;
+            border: 2px solid var(--border-hard);
+            box-shadow: 3px 3px 0px var(--border-hard);
+            transform: translate(-1px, -1px);
         }
 
         /* Main Content Area */
@@ -113,98 +122,124 @@
             flex: 1;
             padding: 40px;
             overflow-y: auto;
-            background: radial-gradient(circle at top right, #1a1a24 0%, var(--bg-base) 60%);
         }
+
         .tool-section {
             display: none;
-            max-width: 800px;
+            max-width: 760px;
             margin: 0 auto;
-            animation: fadeIn 0.3s ease;
         }
         .tool-section.active { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
 
         /* Tool UI Elements */
         .card {
             background-color: var(--bg-panel);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 32px;
+            border: 3px solid var(--border-hard);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
         }
-        h2 { margin-top: 0; color: #fff; font-size: 28px; margin-bottom: 5px; }
-        .subtitle { color: var(--text-muted); margin-bottom: 25px; font-size: 15px; line-height: 1.5; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        h2 { 
+            font-family: 'Silkscreen', cursive;
+            margin-top: 0; 
+            color: var(--text-main); 
+            font-size: 26px; 
+            margin-bottom: 8px; 
+            text-transform: uppercase;
+        }
+
+        .subtitle { 
+            color: var(--text-muted); 
+            margin-bottom: 32px; 
+            font-size: 15px; 
+            border-bottom: 2px dashed var(--border-main);
+            padding-bottom: 16px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 
         /* Form Inputs */
         .input-group { margin-bottom: 20px; }
+        
         label {
             display: block;
             margin-bottom: 8px;
             font-size: 13px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: var(--text-main);
         }
+
         input[type="text"], input[type="number"], select {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            padding: 12px;
+            border: 2px solid var(--border-main);
             background-color: var(--bg-input);
-            color: #fff;
+            color: var(--text-main);
             font-size: 15px;
-            transition: border-color 0.2s;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.1s;
         }
-        input:focus, select:focus { outline: none; border-color: var(--mc-green); }
 
-        /* Buttons */
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: var(--accent); 
+            box-shadow: 4px 4px 0px var(--border-hard);
+            transform: translate(-2px, -2px);
+        }
+
+        /* Buttons (Tactile) */
         button.btn-primary {
-            background-color: var(--mc-green);
+            background-color: var(--accent);
             color: #000;
+            font-family: 'Inter', sans-serif;
             font-weight: 700;
             font-size: 15px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
+            padding: 14px 24px;
+            border: 2px solid var(--border-hard);
+            box-shadow: 4px 4px 0px var(--border-hard);
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            transition: all 0.1s ease;
+            margin-top: 10px;
         }
-        button.btn-primary:hover { background-color: #45e645; box-shadow: 0 0 15px var(--mc-green-glow); }
 
-        /* Output Boxes */
-        .output-box {
-            background-color: #000;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            margin-top: 25px;
-            color: var(--mc-gold);
-            border: 1px solid #333;
-            font-size: 16px;
-            word-wrap: break-word;
-            white-space: pre-wrap;
+        button.btn-primary:active { 
+            transform: translate(4px, 4px); 
+            box-shadow: 0px 0px 0px var(--border-hard); 
+            background-color: var(--accent-hover);
         }
+
+        /* Output Boxes (Console Style) */
+        .output-box {
+            background-color: var(--bg-input);
+            padding: 20px;
+            margin-top: 32px;
+            border: 2px solid var(--border-main);
+            border-left: 4px solid var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .highlight { color: var(--mc-gold); }
+
         .badge {
-            background: #2a2a35;
-            color: #fff;
+            background: var(--bg-input);
+            color: var(--text-muted);
             padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
+            border: 1px solid var(--border-main);
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            margin-left: 12px;
             vertical-align: middle;
-            margin-left: 10px;
         }
         
         #circleCanvas {
-            background-color: #000;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-top: 20px;
+            background-color: var(--bg-input);
+            border: 2px solid var(--border-main);
+            margin-top: 24px;
             display: block;
             max-width: 100%;
         }
@@ -217,74 +252,75 @@
                 flex-direction: row;
                 overflow-x: auto;
                 border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                padding: 10px;
+                border-bottom: 3px solid var(--border-hard);
+                padding: 16px;
                 white-space: nowrap;
             }
             .nav-category { display: none; }
-            nav button { display: inline-flex; width: auto; margin-right: 10px; margin-bottom: 0; padding: 10px 15px; }
-            main { padding: 20px; overflow-y: visible; }
-            .grid-2 { grid-template-columns: 1fr; gap: 10px; }
-            h2 { font-size: 22px; }
+            nav button { display: inline-flex; width: auto; margin-right: 8px; margin-bottom: 0; }
+            main { padding: 16px; overflow-y: visible; }
+            .grid-2 { grid-template-columns: 1fr; gap: 16px; }
+            .card { padding: 20px; box-shadow: 4px 4px 0px rgba(0,0,0,0.8); }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>UtilityCraft</h1>
-        <span>V 2.5.0 Pro</span>
+        <h1>Utility<span>Craft</span></h1>
+        <span class="version-tag">build-v2.5.0</span>
     </header>
 
     <div class="app-container">
         <nav>
-            <div class="nav-category">Server Settings</div>
-            <button class="tab-link active" onclick="openTool('motd')">💬 MOTD Gen</button>
-            <button class="tab-link" onclick="openTool('command')">⌨️ Command Gen</button>
-            <button class="tab-link" onclick="openTool('pvp')">⚔️ PvP Sens</button>
+            <div class="nav-category">Server Setup</div>
+            <button class="tab-link active" onclick="openTool('motd')">MOTD Generator</button>
+            <button class="tab-link" onclick="openTool('command')">Command Builder</button>
+            <button class="tab-link" onclick="openTool('pvp')">PvP Sens Calc</button>
 
-            <div class="nav-category">Building & Tech</div>
-            <button class="tab-link" onclick="openTool('portal')">🌀 Portal Linker</button>
-            <button class="tab-link" onclick="openTool('redstone')">🔴 Redstone</button>
-            <button class="tab-link" onclick="openTool('circle')">⭕ Circle Gen</button>
-            <button class="tab-link" onclick="openTool('banner')">🏴 Banner Loom</button>
+            <div class="nav-category">Engineering</div>
+            <button class="tab-link" onclick="openTool('portal')">Portal Linker</button>
+            <button class="tab-link" onclick="openTool('redstone')">Redstone Delay</button>
+            <button class="tab-link" onclick="openTool('circle')">Circle Blueprint</button>
+            <button class="tab-link" onclick="openTool('banner')">Banner Loom</button>
             
-            <div class="nav-category">Survival Guides</div>
-            <button class="tab-link" onclick="openTool('enchant')">✨ Enchantment</button>
-            <button class="tab-link" onclick="openTool('villager')">👨‍🌾 Trades DB</button>
+            <div class="nav-category">Survival Data</div>
+            <button class="tab-link" onclick="openTool('enchant')">Anvil Strategy</button>
+            <button class="tab-link" onclick="openTool('villager')">Trade Database</button>
 
-            <div class="nav-category">External Tools (Soon)</div>
-            <button class="tab-link" onclick="openTool('seed')">🌍 Seed Map <span class="badge">API</span></button>
-            <button class="tab-link" onclick="openTool('skins')">👕 Skins <span class="badge">API</span></button>
-            <button class="tab-link" onclick="openTool('shaders')">🌅 Shaders <span class="badge">API</span></button>
+            <div class="nav-category">Modules (WIP)</div>
+            <button class="tab-link" onclick="openTool('seed')">Seed Map</button>
+            <button class="tab-link" onclick="openTool('skins')">Skins API</button>
         </nav>
 
         <main>
             <div id="motd" class="tool-section active card">
-                <h2>Server MOTD Generator</h2>
+                <h2>Server MOTD</h2>
+                <p class="subtitle">Format your server.properties message of the day.</p>
                 <div class="input-group">
                     <label>Message Text</label>
-                    <input type="text" id="motdInput" placeholder="Welcome to UtilityCraft!">
+                    <input type="text" id="motdInput" placeholder="Welcome to the server">
                 </div>
                 <div class="input-group">
-                    <label>Base Color</label>
+                    <label>Color Code</label>
                     <select id="motdColor">
-                        <option value="\u00A7a">Light Green (&a)</option>
-                        <option value="\u00A7b">Aqua (&b)</option>
-                        <option value="\u00A7c">Light Red (&c)</option>
-                        <option value="\u00A7e">Yellow (&e)</option>
-                        <option value="\u00A76">Gold (&6)</option>
+                        <option value="\u00A7a">&a (Light Green)</option>
+                        <option value="\u00A7b">&b (Aqua)</option>
+                        <option value="\u00A7c">&c (Light Red)</option>
+                        <option value="\u00A7e">&e (Yellow)</option>
+                        <option value="\u00A76">&6 (Gold)</option>
                     </select>
                 </div>
-                <button class="btn-primary" onclick="generateMOTD()">Generate Code</button>
-                <div class="output-box" id="motdOutput">Waiting for input...</div>
+                <button class="btn-primary" onclick="generateMOTD()">Compile Code</button>
+                <div class="output-box" id="motdOutput">_ waiting for input...</div>
             </div>
 
             <div id="command" class="tool-section card">
-                <h2>Command Generator</h2>
+                <h2>Command Builder</h2>
+                <p class="subtitle">Generate standard /give commands with NBT naming.</p>
                 <div class="grid-2">
                     <div class="input-group">
-                        <label>Target Player</label>
+                        <label>Target Selector</label>
                         <input type="text" id="cmdTarget" value="@p">
                     </div>
                     <div class="input-group">
@@ -294,23 +330,24 @@
                 </div>
                 <div class="grid-2">
                     <div class="input-group">
-                        <label>Amount</label>
+                        <label>Quantity</label>
                         <input type="number" id="cmdAmount" value="1">
                     </div>
                     <div class="input-group">
-                        <label>Custom Item Name</label>
-                        <input type="text" id="cmdName" placeholder="Leave blank for default">
+                        <label>Custom Name</label>
+                        <input type="text" id="cmdName" placeholder="(optional)">
                     </div>
                 </div>
-                <button class="btn-primary" onclick="generateCommand()">Generate Command</button>
-                <div class="output-box" id="commandOutput">Waiting for input...</div>
+                <button class="btn-primary" onclick="generateCommand()">Compile Code</button>
+                <div class="output-box" id="commandOutput">_ waiting for input...</div>
             </div>
 
             <div id="pvp" class="tool-section card">
-                <h2>PvP eDPI Calculator</h2>
+                <h2>PvP eDPI Calc</h2>
+                <p class="subtitle">Calculate true sensitivity across hardware.</p>
                 <div class="grid-2">
                     <div class="input-group">
-                        <label>Mouse DPI</label>
+                        <label>Mouse Hardware DPI</label>
                         <input type="number" id="mouseDpi" placeholder="800">
                     </div>
                     <div class="input-group">
@@ -318,103 +355,101 @@
                         <input type="number" id="gameSens" placeholder="45">
                     </div>
                 </div>
-                <button class="btn-primary" onclick="calculateSens()">Calculate eDPI</button>
-                <div class="output-box" id="sensOutput">Awaiting numbers...</div>
+                <button class="btn-primary" onclick="calculateSens()">Calculate</button>
+                <div class="output-box" id="sensOutput">_ waiting for input...</div>
             </div>
 
             <div id="portal" class="tool-section card">
-                <h2>Nether Portal Linker</h2>
+                <h2>Portal Linker</h2>
+                <p class="subtitle">1:8 coordinate conversion mapping.</p>
                 <div class="grid-2">
                     <div class="input-group">
                         <label>Overworld X</label>
-                        <input type="number" id="overX" placeholder="X coordinate" oninput="calcPortal()">
+                        <input type="number" id="overX" placeholder="0" oninput="calcPortal()">
                     </div>
                     <div class="input-group">
                         <label>Overworld Z</label>
-                        <input type="number" id="overZ" placeholder="Z coordinate" oninput="calcPortal()">
+                        <input type="number" id="overZ" placeholder="0" oninput="calcPortal()">
                     </div>
                 </div>
-                <div class="output-box" id="portalOutput">Nether Coordinates: X: 0, Z: 0</div>
+                <div class="output-box" id="portalOutput">Nether X: 0<br>Nether Z: 0</div>
             </div>
 
             <div id="redstone" class="tool-section card">
-                <h2>Redstone Delay Planner</h2>
+                <h2>Redstone Delay</h2>
+                <p class="subtitle">Repeater tick mathematics.</p>
                 <div class="input-group">
-                    <label>Desired Delay (in Seconds)</label>
+                    <label>Target Delay (Seconds)</label>
                     <input type="number" id="delaySeconds" placeholder="e.g., 2.5" step="0.1">
                 </div>
-                <button class="btn-primary" onclick="calcRedstone()">Calculate Setup</button>
-                <div class="output-box" id="redstoneOutput">Repeater setup will appear here...</div>
+                <button class="btn-primary" onclick="calcRedstone()">Calculate Route</button>
+                <div class="output-box" id="redstoneOutput">_ waiting for input...</div>
             </div>
 
             <div id="circle" class="tool-section card">
-                <h2>Circle/Sphere Blueprint</h2>
-                <p class="subtitle">Generates a block-by-block grid for perfect circles.</p>
+                <h2>Circle Blueprint</h2>
+                <p class="subtitle">Block layout generator for curved structures.</p>
                 <div class="input-group">
                     <label>Radius (Blocks)</label>
-                    <input type="number" id="circleRadius" placeholder="e.g., 10" min="1" max="50">
+                    <input type="number" id="circleRadius" placeholder="10" min="1" max="50">
                 </div>
-                <button class="btn-primary" onclick="drawCircle()">Generate Grid</button>
+                <button class="btn-primary" onclick="drawCircle()">Render Map</button>
                 <canvas id="circleCanvas" width="400" height="400"></canvas>
             </div>
 
             <div id="banner" class="tool-section card">
-                <h2>Loom Instruction Guide</h2>
-                <p class="subtitle">Plan your banner steps to avoid messing up the loom.</p>
+                <h2>Banner Loom</h2>
+                <p class="subtitle">Instruction sequencing for loom designs.</p>
                 <div class="input-group">
-                    <label>Banner Base Color</label>
+                    <label>Banner Base</label>
                     <select id="bannerBase">
                         <option>White</option><option>Black</option><option>Red</option><option>Blue</option>
                     </select>
                 </div>
                 <div class="grid-2">
                     <div class="input-group">
-                        <label>Step 1 Pattern</label>
+                        <label>Layer 1 Pattern</label>
                         <select id="bannerPat1"><option>None</option><option>Gradient</option><option>Cross</option><option>Creeper</option></select>
                     </div>
                     <div class="input-group">
-                        <label>Step 1 Color</label>
+                        <label>Layer 1 Color</label>
                         <select id="bannerCol1"><option>Black</option><option>White</option><option>Yellow</option></select>
                     </div>
                 </div>
-                <button class="btn-primary" onclick="generateBanner()">Create Instructions</button>
-                <div class="output-box" id="bannerOutput">Select patterns above...</div>
+                <button class="btn-primary" onclick="generateBanner()">Sequence Instructions</button>
+                <div class="output-box" id="bannerOutput">_ waiting for input...</div>
             </div>
 
             <div id="enchant" class="tool-section card">
-                <h2>Anvil Binary Tree Guide</h2>
-                <p class="subtitle">Avoid the "Too Expensive" limit by pairing books correctly.</p>
+                <h2>Anvil Strategy</h2>
+                <p class="subtitle">Binary tree combination to bypass XP limits.</p>
                 <div class="input-group">
                     <label>Total Books to Apply</label>
-                    <input type="number" id="enchantCount" placeholder="e.g., 4" min="2" max="6">
+                    <input type="number" id="enchantCount" placeholder="4" min="2" max="6">
                 </div>
-                <button class="btn-primary" onclick="calcEnchantment()">Show Anvil Strategy</button>
-                <div class="output-box" id="enchantOutput">Enter number of books...</div>
+                <button class="btn-primary" onclick="calcEnchantment()">Generate Tree</button>
+                <div class="output-box" id="enchantOutput">_ waiting for input...</div>
             </div>
 
             <div id="villager" class="tool-section card">
-                <h2>Villager Trade DB</h2>
-                <p class="subtitle">Search for items to find the workstation and profession required.</p>
+                <h2>Trade Database</h2>
+                <p class="subtitle">Query workstation blocks and professions.</p>
                 <div class="input-group">
-                    <label>Search Item or Profession</label>
-                    <input type="text" id="villagerSearch" placeholder="e.g., Mending, Diamond, Armorer..." oninput="searchVillagers()">
+                    <label>Search Query</label>
+                    <input type="text" id="villagerSearch" placeholder="Type item or profession..." oninput="searchVillagers()">
                 </div>
-                <div class="output-box" id="villagerOutput" style="color:var(--text-main)">
-                    Type to search trades...
+                <div class="output-box" id="villagerOutput" style="border-left-color: var(--border-main);">
+                    _ Awaiting query...
                 </div>
             </div>
 
             <div id="seed" class="tool-section card">
-                <h2>Seed Map Viewer <span class="badge">Requires Chunkbase API</span></h2>
-                <p class="subtitle">Pending backend integration.</p>
+                <h2>Seed Map <span class="badge">API Required</span></h2>
+                <p class="subtitle">Awaiting map rendering module integration.</p>
             </div>
             <div id="skins" class="tool-section card">
-                <h2>Skin Viewer <span class="badge">Requires Mojang API</span></h2>
-                <p class="subtitle">Pending backend integration.</p>
-            </div>
-            <div id="shaders" class="tool-section card">
-                <h2>Shaders Hub <span class="badge">Requires Modrinth API</span></h2>
-                <p class="subtitle">Pending backend integration.</p>
+                <h2>Skins API <span class="badge">API Required</span></h2>
+                <p class="subtitle">Awaiting Mojang auth module integration.</p>
             </div>
         </main>
     </div>
@@ -428,11 +463,11 @@
             document.querySelector(`[onclick="openTool('${toolId}')"]`).classList.add('active');
         }
 
-        // 1 & 2. MOTD & Command Gen
+        // Logic
         function generateMOTD() {
             const text = document.getElementById('motdInput').value;
             const color = document.getElementById('motdColor').value;
-            document.getElementById('motdOutput').innerText = `motd=${color}${text.replace(/ /g, '\\u0020')}`;
+            document.getElementById('motdOutput').innerHTML = `<span class="highlight">motd=</span>${color}${text.replace(/ /g, '\\u0020')}`;
         }
 
         function generateCommand() {
@@ -442,69 +477,54 @@
             const name = document.getElementById('cmdName').value.trim();
             if (!item.startsWith('minecraft:')) item = 'minecraft:' + item;
             let nbt = name ? `[custom_name='{"text":"${name}","italic":false}']` : "";
-            document.getElementById('commandOutput').innerText = `/give ${target} ${item}${nbt} ${amount}`;
+            document.getElementById('commandOutput').innerHTML = `<span class="highlight">/give</span> ${target} ${item}${nbt} ${amount}`;
         }
 
-        // 3. PvP Sens
         function calculateSens() {
             const dpi = parseFloat(document.getElementById('mouseDpi').value);
             const sens = parseFloat(document.getElementById('gameSens').value);
             if(isNaN(dpi) || isNaN(sens)) return;
-            const edpi = dpi * (sens / 100);
-            document.getElementById('sensOutput').innerText = `Your eDPI is: ${edpi.toFixed(2)}`;
+            document.getElementById('sensOutput').innerHTML = `Calculated eDPI: <span class="highlight">${(dpi * (sens / 100)).toFixed(2)}</span>`;
         }
 
-        // 4. Portal Calculator
         function calcPortal() {
             const x = parseFloat(document.getElementById('overX').value);
             const z = parseFloat(document.getElementById('overZ').value);
             let nX = isNaN(x) ? 0 : Math.floor(x / 8);
             let nZ = isNaN(z) ? 0 : Math.floor(z / 8);
-            document.getElementById('portalOutput').innerText = `Nether X: ${nX}\nNether Z: ${nZ}`;
+            document.getElementById('portalOutput').innerHTML = `Nether X: <span class="highlight">${nX}</span>\nNether Z: <span class="highlight">${nZ}</span>`;
         }
 
-        // 5. Redstone Planner
         function calcRedstone() {
             const seconds = parseFloat(document.getElementById('delaySeconds').value);
             if(isNaN(seconds)) return;
             const totalTicks = seconds * 10;
             const maxReps = Math.floor(totalTicks / 4);
             const remTicks = totalTicks % 4;
-            let out = `${maxReps} Repeaters set to 4 ticks\n`;
-            if (remTicks > 0) out += `1 Repeater set to ${remTicks} tick(s)\n`;
-            document.getElementById('redstoneOutput').innerText = out;
+            let out = `[ ${maxReps} ] Repeaters @ 4 ticks\n`;
+            if (remTicks > 0) out += `[ 1 ] Repeater  @ ${remTicks} ticks\n`;
+            document.getElementById('redstoneOutput').innerHTML = `<span class="highlight">${out}</span>`;
         }
 
-        // 6. Circle Generator (Canvas pixel drawing)
         function drawCircle() {
             const r = parseInt(document.getElementById('circleRadius').value);
             if (!r || r < 1) return;
-            
             const canvas = document.getElementById('circleCanvas');
             const ctx = canvas.getContext('2d');
-            
-            // Clear canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Calculate grid size based on canvas width and radius
             const gridSize = r * 2 + 2; 
             const cellSize = Math.floor(canvas.width / gridSize);
             const center = Math.floor(gridSize / 2);
             
-            // Draw Grid Lines (optional, helps visualization)
-            ctx.strokeStyle = '#2a2a35';
+            ctx.strokeStyle = '#27272a';
             for(let i=0; i<gridSize; i++) {
                 ctx.strokeRect(i*cellSize, 0, 1, canvas.height);
                 ctx.strokeRect(0, i*cellSize, canvas.width, 1);
             }
-
-            ctx.fillStyle = '#55FF55'; // Minecraft Green Blocks
-            
-            // Midpoint Circle Algorithm approximation
+            ctx.fillStyle = '#10b981';
             for (let x = -r; x <= r; x++) {
                 for (let y = -r; y <= r; y++) {
                     const dist = Math.sqrt(x*x + y*y);
-                    // Draw if distance is close to radius
                     if (dist >= r - 0.5 && dist < r + 0.5) {
                         ctx.fillRect((center + x) * cellSize, (center + y) * cellSize, cellSize, cellSize);
                     }
@@ -512,77 +532,49 @@
             }
         }
 
-        // 7. Banner Loom
         function generateBanner() {
             const base = document.getElementById('bannerBase').value;
             const p1 = document.getElementById('bannerPat1').value;
             const c1 = document.getElementById('bannerCol1').value;
-            
-            let out = `Base: Craft a ${base} Banner.\n\nLoom Steps:\n`;
-            if(p1 === "None") {
-                out += "No patterns selected.";
-            } else {
-                out += `1. Place banner in Loom with ${c1} dye.\n2. Select the '${p1}' pattern.`;
-            }
+            let out = `[ BASE ] ${base} Banner\n\n`;
+            if(p1 === "None") out += "No layers selected.";
+            else out += `[ LAYER 1 ]\nPattern: ${p1}\nDye: ${c1}`;
             document.getElementById('bannerOutput').innerText = out;
         }
 
-        // 8. Enchantment Combiner Logic (Binary Tree Explainer)
         function calcEnchantment() {
             const count = parseInt(document.getElementById('enchantCount').value);
             let out = "";
-            if (isNaN(count) || count < 2) {
-                out = "Please enter 2 or more books.";
-            } else if (count === 2) {
-                out = "Step 1: Combine Item + Book 1\nStep 2: Combine Item + Book 2";
-            } else if (count === 3 || count === 4) {
-                out = "Step 1: Combine Book 1 + Book 2 (creates Combined Book A)\n";
-                if(count === 4) out += "Step 2: Combine Book 3 + Book 4 (creates Combined Book B)\nStep 3: Combine Item + Book A\nStep 4: Combine Item + Book B";
-                else out += "Step 2: Combine Item + Book A\nStep 3: Combine Item + Book 3";
-            } else {
-                out = "Rule of thumb for 5+ books: Always combine books into pairs first! \n(e.g., Book 1+2, Book 3+4, Book 5+6). \nThen combine those pairs together before putting them on the weapon. Never put books on the weapon one by one!";
-            }
+            if (isNaN(count) || count < 2) out = "Error: Input must be >= 2";
+            else if (count === 2) out = "01. Item + Book A\n02. Item + Book B";
+            else if (count === 3) out = "01. Book A + Book B -> [Node 1]\n02. Item + [Node 1]\n03. Item + Book C";
+            else if (count === 4) out = "01. Book A + Book B -> [Node 1]\n02. Book C + Book D -> [Node 2]\n03. Item + [Node 1]\n04. Item + [Node 2]";
+            else out = "STRATEGY: Combine in pairs.\nDo not stack linearly. Create a binary tree (A+B, C+D) before applying to the base item.";
             document.getElementById('enchantOutput').innerText = out;
         }
 
-        // 9. Villager Trade DB Search Logic
         const trades = [
             { item: "Mending Book", prof: "Librarian", block: "Lectern", level: "Any" },
             { item: "Unbreaking III Book", prof: "Librarian", block: "Lectern", level: "Any" },
             { item: "Diamond Pickaxe", prof: "Toolsmith", block: "Smithing Table", level: "Master" },
-            { item: "Diamond Sword", prof: "Weaponsmith", block: "Grindstone", level: "Master" },
-            { item: "Diamond Armor", prof: "Armorer", block: "Blast Furnace", level: "Expert/Master" },
-            { item: "Golden Carrots", prof: "Farmer", block: "Composter", level: "Master" },
-            { item: "Ender Pearls", prof: "Cleric", block: "Brewing Stand", level: "Expert" },
-            { item: "Name Tags", prof: "Librarian", block: "Lectern", level: "Master" },
-            { item: "Saddles", prof: "Leatherworker", block: "Cauldron", level: "Master" },
-            { item: "Quartz Block", prof: "Mason", block: "Stonecutter", level: "Expert" }
+            { item: "Diamond Armor", prof: "Armorer", block: "Blast Furnace", level: "Expert" },
+            { item: "Golden Carrots", prof: "Farmer", block: "Composter", level: "Master" }
         ];
 
         function searchVillagers() {
             const q = document.getElementById('villagerSearch').value.toLowerCase();
             const out = document.getElementById('villagerOutput');
             out.innerHTML = "";
+            out.style.borderLeftColor = 'var(--border-main)';
             
-            if(!q) { out.innerHTML = "Type to search trades..."; return; }
+            if(!q) { out.innerHTML = "_ Awaiting query..."; return; }
+            const matches = trades.filter(t => t.item.toLowerCase().includes(q) || t.prof.toLowerCase().includes(q));
             
-            const matches = trades.filter(t => 
-                t.item.toLowerCase().includes(q) || 
-                t.prof.toLowerCase().includes(q)
-            );
+            if(matches.length === 0) { out.innerHTML = "ERR: 404 Not Found."; return; }
             
-            if(matches.length === 0) { 
-                out.innerHTML = "No trades found for that query."; 
-                return; 
-            }
-            
+            out.style.borderLeftColor = 'var(--accent)';
             matches.forEach(m => {
-                out.innerHTML += `
-                    <div style="border-bottom:1px solid #333; padding:10px 0;">
-                        <span style="color:var(--mc-gold); font-weight:bold;">${m.item}</span><br>
-                        Profession: ${m.prof} | Block: ${m.block} | Unlocks at: ${m.level}
-                    </div>
-                `;
+                out.innerHTML += `<span class="highlight">${m.item}</span>\nProf: ${m.prof} | Block: ${m.block} | Unlocks: ${m.level}\n\n`;
             });
         }
     </script>
