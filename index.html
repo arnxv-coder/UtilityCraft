@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UtilityCraft | Advanced Minecraft Tools</title>
+    <style>
+        /* Modern CSS Variables & Theme */
+        :root {
+            --bg-base: #0a0a0c;
+            --bg-panel: #16161a;
+            --bg-input: #24242b;
+            --mc-green: #55FF55;
+            --mc-green-glow: rgba(85, 255, 85, 0.2);
+            --mc-gold: #FFAA00;
+            --text-main: #f0f0f0;
+            --text-muted: #8e8e9f;
+            --border-color: #2a2a35;
+        }
+
+        /* Global Reset & Typography */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* Header */
+        header {
+            background-color: var(--bg-panel);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--mc-green);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--mc-green-glow);
+        }
+
+        header span {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 280px;
+            background-color: var(--bg-panel);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 15px 10px;
+        }
+
+        .nav-category {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 15px 0 5px 15px;
+            font-weight: bold;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            padding: 12px 15px;
+            margin-bottom: 4px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav button:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        nav button.active {
+            background-color: var(--mc-green-glow);
+            color: var(--mc-green);
+            border-left: 3px solid var(--mc-green);
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: radial-gradient(circle at top right, #1a1a24 0%, var(--bg-base) 60%);
+        }
+
+        .tool-section {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tool-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tool UI Elements */
+        .card {
+            background-color: var(--bg-panel);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Form Inputs */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-input);
+            color: #fff;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--mc-green);
+        }
+
+        /* Buttons */
+        button.btn-primary {
+            background-color: var(--mc-green);
+            color: #000;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button.btn-primary:hover {
+            background-color: #45e645;
+            box-shadow: 0 0 15px var(--mc-green-glow);
+            transform: translateY(-1px);
+        }
+
+        /* Output Box */
+        .output-box {
+            background-color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin-top: 25px;
+            color: var(--mc-gold);
+            border: 1px solid #333;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+
+        /* Placeholder Badge */
+        .badge {
+            background: #2a2a35;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>UtilityCraft</h1>
+        <span>V 2.0.0 Pro Setup</span>
+    </header>
+
+    <div class="app-container">
+        <nav>
+            <div class="nav-category">Server & Settings</div>
+            <button class="tab-link active" onclick="openTool('motd')">💬 MOTD Generator</button>
+            <button class="tab-link" onclick="openTool('command')">⌨️ Command Gen</button>
+            <button class="tab-link" onclick="openTool('pvp')">⚔️ PvP Sens Calc</button>
+
+            <div class="nav-category">World Utility</div>
+            <button class="tab-link" onclick="openTool('portal')">🌀 Portal Converter</button>
+            <button class="tab-link" onclick="openTool('seed')">🌍 Seed Viewer</button>
+
+            <div class="nav-category">Building & Tech</div>
+            <button class="tab-link" onclick="openTool('redstone')">🔴 Redstone Delay</button>
+            <button class="tab-link" onclick="openTool('circle')">⭕ Circle Generator</button>
+            <button class="tab-link" onclick="openTool('banner')">🏴 Banner Designer</button>
+            
+            <div class="nav-category">Survival Guides</div>
+            <button class="tab-link" onclick="openTool('enchant')">✨ Enchantment Calc</button>
+            <button class="tab-link" onclick="openTool('villager')">👨‍🌾 Villager Trades</button>
+            <button class="tab-link" onclick="openTool('crafting')">⚒️ Crafting Guide</button>
+
+            <div class="nav-category">Cosmetics</div>
+            <button class="tab-link" onclick="openTool('skins')">👕 Skin Viewer</button>
+            <button class="tab-link" onclick="openTool('shaders')">🌅 Shaders Hub</button>
+        </nav>
+
+        <main>
+            <div id="motd" class="tool-section active card">
+                <h2>Server MOTD Generator</h2>
+                <p class="subtitle">Design your server.properties Message of the Day with standard color codes.</p>
+                <div class="input-group">
+                    <label>Message Text</label>
+                    <input type="text" id="motdInput" placeholder="Welcome to UtilityCraft Survival!">
+                </div>
+                <div class="input-group">
+                    <label>Base Color</label>
+                    <select id="motdColor">
+                        <option value="\u00A7a">Light Green (&a)</option>
+                        <option value="\u00A7b">Aqua (&b)</option>
+                        <option value="\u00A7c">Light Red (&c)</option>
+                        <option value="\u00A7e">Yellow (&e)</option>
+                        <option value="\u00A76">Gold (&6)</option>
+                        <option value="\u00A7d">Light Purple (&d)</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="generateMOTD()">Generate Code</button>
+                <div class="output-box" id="motdOutput">Waiting for input...</div>
+            </div>
+
+            <div id="pvp" class="tool-section card">
+                <h2>PvP eDPI Calculator</h2>
+                <p class="subtitle">Standardize your aim. Calculate your effective DPI to match pro players.</p>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label>Hardware Mouse DPI</label>
+                        <input type="number" id="mouseDpi" placeholder="e.g., 800">
+                    </div>
+                    <div class="input-group">
+                        <label>In-Game Sens (%)</label>
+                        <input type="number" id="gameSens" placeholder="e.g., 45">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="calculateSens()">Calculate eDPI</button>
+                <div class="output-box" id="sensOutput">Awaiting numbers...</div>
+            </div>
+
+            <div id="portal" class="tool-section card">
+                <h2>Nether Portal Linker</h2>
+                <p class="subtitle">Instantly convert Overworld coordinates to exact Nether placements.</p>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label>Overworld X</label>
+                        <input type="number" id="overX" placeholder="X coordinate" oninput="calcPortal()">
+                    </div>
+                    <div class="input-group">
+                        <label>Overworld Z</label>
+                        <input type="number" id="overZ" placeholder="Z coordinate" oninput="calcPortal()">
+                    </div>
+                </div>
+                <div class="output-box" id="portalOutput">Nether Coordinates: X: 0, Z: 0</div>
+            </div>
+
+            <div id="redstone" class="tool-section card">
+                <h2>Redstone Delay Planner</h2>
+                <p class="subtitle">Calculate exactly how many repeaters you need for specific timer delays.</p>
+                <div class="input-group">
+                    <label>Desired Delay (in Seconds)</label>
+                    <input type="number" id="delaySeconds" placeholder="e.g., 2.5" step="0.1">
+                </div>
+                <button class="btn-primary" onclick="calcRedstone()">Calculate Setup</button>
+                <div class="output-box" id="redstoneOutput">Repeater setup will appear here...</div>
+            </div>
+
+            <div id="command" class="tool-section card">
+                <h2>Command Generator <span class="badge">In Development</span></h2>
+                <p class="subtitle">Visual builder for complex /summon, /give with NBT tags, and /tellraw.</p>
+                <div class="output-box" style="color:var(--text-muted)">// Visual interface module loading...</div>
+            </div>
+
+            <div id="seed" class="tool-section card">
+                <h2>Seed Map Viewer <span class="badge">In Development</span></h2>
+                <p class="subtitle">Locate slime chunks, ancient cities, and exact biome borders.</p>
+                <input type="text" placeholder="Enter numerical seed..." style="margin-bottom: 15px;">
+                <button class="btn-primary">Scan Map</button>
+            </div>
+
+            <div id="circle" class="tool-section card">
+                <h2>Pixel Art & Circle Gen <span class="badge">In Development</span></h2>
+                <p class="subtitle">Generate block-by-block blueprints for perfect spheres and domes.</p>
+                <div class="output-box" style="color:var(--text-muted)">// Canvas rendering module loading...</div>
+            </div>
+
+            <div id="banner" class="tool-section card">
+                <h2>Banner Designer <span class="badge">In Development</span></h2>
+                <p class="subtitle">Layer patterns visually and get the exact loom instructions.</p>
+                <div class="output-box" style="color:var(--text-muted)">// Graphics rendering module loading...</div>
+            </div>
+
+            <div id="enchant" class="tool-section card">
+                <h2>Optimal Enchanting <span class="badge">In Development</span></h2>
+                <p class="subtitle">Avoid "Too Expensive" by calculating the perfect anvil combination order.</p>
+                <div class="output-box" style="color:var(--text-muted)">// Logic tree loading...</div>
+            </div>
+
+            <div id="villager" class="tool-section card">
+                <h2>Villager Trade DB <span class="badge">In Development</span></h2>
+                <p class="subtitle">Search for items to see exactly which workstation and level you need.</p>
+                <input type="text" placeholder="Search item (e.g., Mending)...">
+            </div>
+
+            <div id="crafting" class="tool-section card">
+                <h2>Crafting Guide <span class="badge">In Development</span></h2>
+                <p class="subtitle">Interactive crafting table showing all vanilla recipes.</p>
+                <div class="output-box" style="color:var(--text-muted)">// Recipe JSON loading...</div>
+            </div>
+
+            <div id="skins" class="tool-section card">
+                <h2>Skin Viewer <span class="badge">In Development</span></h2>
+                <p class="subtitle">Enter any username to fetch, render in 3D, and download their skin.</p>
+                <input type="text" placeholder="Minecraft Username...">
+            </div>
+
+            <div id="shaders" class="tool-section card">
+                <h2>Shaders Hub <span class="badge">In Development</span></h2>
+                <p class="subtitle">Filter shaders by PC specs (Low-end to RTX) and visual style.</p>
+                <div class="output-box" style="color:var(--text-muted)">// Database query loading...</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Tab Navigation Logic
+        function openTool(toolId) {
+            // Hide all tools
+            document.querySelectorAll('.tool-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Deselect all tabs
+            document.querySelectorAll('.tab-link').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Activate selected
+            document.getElementById(toolId).classList.add('active');
+            document.querySelector(`[onclick="openTool('${toolId}')"]`).classList.add('active');
+        }
+
+        // 1. MOTD Logic
+        function generateMOTD() {
+            const text = document.getElementById('motdInput').value;
+            const colorCode = document.getElementById('motdColor').value;
+            if(!text) return;
+            // Simulated server.properties output format
+            const result = `motd=${colorCode}${text.replace(/ /g, '\\u0020')}`;
+            document.getElementById('motdOutput').innerText = result;
+        }
+
+        // 2. PvP Sens Logic
+        function calculateSens() {
+            const dpi = parseFloat(document.getElementById('mouseDpi').value);
+            const sens = parseFloat(document.getElementById('gameSens').value);
+            if(isNaN(dpi) || isNaN(sens)) {
+                document.getElementById('sensOutput').innerText = "Please enter valid numbers.";
+                return;
+            }
+            const edpi = dpi * (sens / 100);
+            let rating = "";
+            if(edpi < 200) rating = "(Very Low - Requires large mousepad)";
+            else if(edpi < 600) rating = "(Medium - Standard for competitive tracking)";
+            else rating = "(High - Relies mostly on wrist aiming)";
+            
+            document.getElementById('sensOutput').innerText = `Your eDPI is: ${edpi.toFixed(2)}\n${rating}`;
+        }
+
+        // 3. Nether Portal Logic (Real-time calculation)
+        function calcPortal() {
+            const x = parseFloat(document.getElementById('overX').value);
+            const z = parseFloat(document.getElementById('overZ').value);
+            
+            let netherX = isNaN(x) ? 0 : Math.floor(x / 8);
+            let netherZ = isNaN(z) ? 0 : Math.floor(z / 8);
+
+            document.getElementById('portalOutput').innerText = 
+                `Exact Nether Coordinates:\nX: ${netherX} \nY: (Keep same as Overworld) \nZ: ${netherZ}`;
+        }
+
+        // 4. Redstone Delay Logic
+        function calcRedstone() {
+            const seconds = parseFloat(document.getElementById('delaySeconds').value);
+            if(isNaN(seconds)) return;
+
+            // 1 redstone tick = 0.1 seconds. Max repeater = 4 ticks = 0.4 seconds.
+            const totalTicks = seconds * 10;
+            const maxRepeaters = Math.floor(totalTicks / 4);
+            const remainderTicks = totalTicks % 4;
+
+            let output = `For a ${seconds}s delay (${totalTicks} Redstone Ticks):\n`;
+            output += `► ${maxRepeaters} Repeaters set to full (4 ticks)\n`;
+            
+            if (remainderTicks > 0) {
+                output += `► 1 Repeater set to ${remainderTicks} tick(s)\n`;
+                output += `Total Repeaters Needed: ${maxRepeaters + 1}`;
+            } else {
+                output += `Total Repeaters Needed: ${maxRepeaters}`;
+            }
+
+            document.getElementById('redstoneOutput').innerText = output;
+        }
+    </script>
+</body>
+</html>
+
