@@ -6,20 +6,20 @@
     <title>UtilityCraft | Minecraft Tools</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Silkscreen&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Silkscreen&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* "Deepslate & Emerald" Theme - Neo-Brutalist Gaming UI */
         :root {
-            --bg-base: #18181b;       /* Zinc 900 */
-            --bg-panel: #27272a;      /* Zinc 800 */
-            --bg-input: #111113;      /* Almost black */
-            --border-main: #3f3f46;   /* Zinc 700 */
+            --bg-base: #18181b;       
+            --bg-panel: #27272a;      
+            --bg-input: #111113;      
+            --border-main: #3f3f46;   
             --border-hard: #000000;
-            --accent: #10b981;        /* Emerald Green */
+            --accent: #10b981;        
             --accent-hover: #059669;
-            --text-main: #e4e4e7;     /* Zinc 200 */
-            --text-muted: #a1a1aa;    /* Zinc 400 */
+            --text-main: #e4e4e7;     
+            --text-muted: #a1a1aa;    
             --mc-gold: #fbbf24;
         }
 
@@ -34,7 +34,6 @@
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
-            /* Subtle dot pattern background */
             background-image: radial-gradient(var(--border-main) 1px, transparent 0);
             background-size: 20px 20px;
         }
@@ -43,7 +42,6 @@
         ::-webkit-scrollbar-track { background: var(--bg-base); border-left: 2px solid var(--border-hard); }
         ::-webkit-scrollbar-thumb { background: var(--border-main); border: 2px solid var(--border-hard); }
 
-        /* Header */
         header {
             background-color: var(--bg-panel);
             padding: 16px 32px;
@@ -65,10 +63,8 @@
         header h1 span { color: var(--accent); }
         .version-tag { font-family: 'JetBrains Mono', monospace; color: var(--text-muted); font-size: 13px; font-weight: 600; }
 
-        /* Layout Structure */
         .app-container { display: flex; flex: 1; overflow: hidden; }
 
-        /* Sidebar Navigation */
         nav {
             width: 260px;
             background-color: var(--bg-panel);
@@ -104,11 +100,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        nav button:hover {
-            border-color: var(--border-main);
-            background-color: var(--bg-base);
-        }
-
+        nav button:hover { border-color: var(--border-main); background-color: var(--bg-base); }
         nav button.active {
             background-color: var(--accent);
             color: #000;
@@ -117,21 +109,11 @@
             transform: translate(-1px, -1px);
         }
 
-        /* Main Content Area */
-        main {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-        }
+        main { flex: 1; padding: 40px; overflow-y: auto; }
 
-        .tool-section {
-            display: none;
-            max-width: 760px;
-            margin: 0 auto;
-        }
+        .tool-section { display: none; max-width: 760px; margin: 0 auto; }
         .tool-section.active { display: block; }
 
-        /* Tool UI Elements */
         .card {
             background-color: var(--bg-panel);
             padding: 32px;
@@ -141,125 +123,77 @@
 
         h2 { 
             font-family: 'Silkscreen', cursive;
-            margin-top: 0; 
-            color: var(--text-main); 
-            font-size: 26px; 
-            margin-bottom: 8px; 
-            text-transform: uppercase;
+            margin-top: 0; color: var(--text-main); 
+            font-size: 26px; margin-bottom: 8px; text-transform: uppercase;
         }
 
         .subtitle { 
-            color: var(--text-muted); 
-            margin-bottom: 32px; 
-            font-size: 15px; 
-            border-bottom: 2px dashed var(--border-main);
-            padding-bottom: 16px;
+            color: var(--text-muted); margin-bottom: 32px; font-size: 15px; 
+            border-bottom: 2px dashed var(--border-main); padding-bottom: 16px;
         }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
-        /* Form Inputs */
         .input-group { margin-bottom: 20px; }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+        label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; color: var(--text-main); }
 
         input[type="text"], input[type="number"], select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-main);
-            background-color: var(--bg-input);
-            color: var(--text-main);
-            font-size: 15px;
-            font-family: 'JetBrains Mono', monospace;
-            transition: all 0.1s;
+            width: 100%; padding: 12px; border: 2px solid var(--border-main);
+            background-color: var(--bg-input); color: var(--text-main);
+            font-size: 15px; font-family: 'JetBrains Mono', monospace; transition: all 0.1s;
         }
-
         input:focus, select:focus { 
-            outline: none; 
-            border-color: var(--accent); 
-            box-shadow: 4px 4px 0px var(--border-hard);
-            transform: translate(-2px, -2px);
+            outline: none; border-color: var(--accent); 
+            box-shadow: 4px 4px 0px var(--border-hard); transform: translate(-2px, -2px);
         }
 
-        /* Buttons (Tactile) */
+        /* Toolbar styles for MOTD */
+        .toolbar {
+            display: flex; gap: 8px; margin-bottom: 8px;
+            background: var(--bg-input); padding: 8px; border: 2px solid var(--border-main);
+        }
+        .btn-small {
+            background: var(--bg-panel); border: 1px solid var(--border-main);
+            color: var(--text-main); padding: 4px 8px; font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; font-weight: bold; cursor: pointer;
+        }
+        .btn-small:hover { background: var(--border-main); }
+
         button.btn-primary {
-            background-color: var(--accent);
-            color: #000;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 15px;
-            padding: 14px 24px;
-            border: 2px solid var(--border-hard);
-            box-shadow: 4px 4px 0px var(--border-hard);
-            cursor: pointer;
-            transition: all 0.1s ease;
-            margin-top: 10px;
+            background-color: var(--accent); color: #000; font-family: 'Inter', sans-serif;
+            font-weight: 700; font-size: 15px; padding: 14px 24px; border: 2px solid var(--border-hard);
+            box-shadow: 4px 4px 0px var(--border-hard); cursor: pointer; transition: all 0.1s ease;
+            margin-top: 10px; width: 100%;
         }
-
         button.btn-primary:active { 
-            transform: translate(4px, 4px); 
-            box-shadow: 0px 0px 0px var(--border-hard); 
+            transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--border-hard); 
             background-color: var(--accent-hover);
         }
 
-        /* Output Boxes (Console Style) */
         .output-box {
-            background-color: var(--bg-input);
-            padding: 20px;
-            margin-top: 32px;
-            border: 2px solid var(--border-main);
-            border-left: 4px solid var(--accent);
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-main);
-            font-size: 14px;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            background-color: var(--bg-input); padding: 20px; margin-top: 32px;
+            border: 2px solid var(--border-main); border-left: 4px solid var(--accent);
+            font-family: 'JetBrains Mono', monospace; color: var(--text-main);
+            font-size: 14px; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word;
         }
 
         .highlight { color: var(--mc-gold); }
-
         .badge {
-            background: var(--bg-input);
-            color: var(--text-muted);
-            padding: 4px 8px;
-            border: 1px solid var(--border-main);
-            font-size: 11px;
-            font-family: 'Inter', sans-serif;
-            margin-left: 12px;
-            vertical-align: middle;
+            background: var(--bg-input); color: var(--text-muted); padding: 4px 8px;
+            border: 1px solid var(--border-main); font-size: 11px; font-family: 'Inter', sans-serif;
+            margin-left: 12px; vertical-align: middle;
         }
         
-        #circleCanvas {
-            background-color: var(--bg-input);
-            border: 2px solid var(--border-main);
-            margin-top: 24px;
-            display: block;
-            max-width: 100%;
-        }
+        #circleCanvas { background-color: var(--bg-input); border: 2px solid var(--border-main); margin-top: 24px; display: block; max-width: 100%; }
 
-        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .app-container { flex-direction: column; overflow-y: auto; }
-            nav {
-                width: 100%;
-                flex-direction: row;
-                overflow-x: auto;
-                border-right: none;
-                border-bottom: 3px solid var(--border-hard);
-                padding: 16px;
-                white-space: nowrap;
-            }
+            nav { width: 100%; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 3px solid var(--border-hard); padding: 16px; white-space: nowrap; }
             .nav-category { display: none; }
             nav button { display: inline-flex; width: auto; margin-right: 8px; margin-bottom: 0; }
             main { padding: 16px; overflow-y: visible; }
-            .grid-2 { grid-template-columns: 1fr; gap: 16px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 16px; }
             .card { padding: 20px; box-shadow: 4px 4px 0px rgba(0,0,0,0.8); }
         }
     </style>
@@ -268,7 +202,7 @@
 
     <header>
         <h1>Utility<span>Craft</span></h1>
-        <span class="version-tag">build-v2.5.0</span>
+        <span class="version-tag">build-v3.0.0</span>
     </header>
 
     <div class="app-container">
@@ -287,58 +221,65 @@
             <div class="nav-category">Survival Data</div>
             <button class="tab-link" onclick="openTool('enchant')">Anvil Strategy</button>
             <button class="tab-link" onclick="openTool('villager')">Trade Database</button>
-
-            <div class="nav-category">Modules (WIP)</div>
-            <button class="tab-link" onclick="openTool('seed')">Seed Map</button>
-            <button class="tab-link" onclick="openTool('skins')">Skins API</button>
         </nav>
 
         <main>
             <div id="motd" class="tool-section active card">
-                <h2>Server MOTD</h2>
-                <p class="subtitle">Format your server.properties message of the day.</p>
+                <h2>Pro MOTD Editor</h2>
+                <p class="subtitle">Format your server.properties message. Use & for color codes.</p>
+                
+                <div class="toolbar">
+                    <span style="font-size: 12px; color: var(--text-muted); align-self: center; margin-right: 8px;">Quick Insert:</span>
+                    <button class="btn-small" onclick="insertMotd('&l')" title="Bold">&l (Bold)</button>
+                    <button class="btn-small" onclick="insertMotd('&o')" title="Italic">&o (Italic)</button>
+                    <button class="btn-small" onclick="insertMotd('&n')" title="Underline">&n (Line)</button>
+                    <button class="btn-small" onclick="insertMotd('&m')" title="Strike">&m (Strike)</button>
+                    <button class="btn-small" onclick="insertMotd('&r')" title="Reset">&r (Reset)</button>
+                </div>
+
                 <div class="input-group">
-                    <label>Message Text</label>
-                    <input type="text" id="motdInput" placeholder="Welcome to the server">
+                    <label>Line 1</label>
+                    <input type="text" id="motdLine1" placeholder="&a&lWelcome to UtilityCraft!">
                 </div>
                 <div class="input-group">
-                    <label>Color Code</label>
-                    <select id="motdColor">
-                        <option value="\u00A7a">&a (Light Green)</option>
-                        <option value="\u00A7b">&b (Aqua)</option>
-                        <option value="\u00A7c">&c (Light Red)</option>
-                        <option value="\u00A7e">&e (Yellow)</option>
-                        <option value="\u00A76">&6 (Gold)</option>
-                    </select>
+                    <label>Line 2</label>
+                    <input type="text" id="motdLine2" placeholder="&eSurvival & PvP | &bJoin Now!">
                 </div>
+
                 <button class="btn-primary" onclick="generateMOTD()">Compile Code</button>
                 <div class="output-box" id="motdOutput">_ waiting for input...</div>
             </div>
 
             <div id="command" class="tool-section card">
-                <h2>Command Builder</h2>
-                <p class="subtitle">Generate standard /give commands with NBT naming.</p>
-                <div class="grid-2">
+                <h2>Multi-Command Builder</h2>
+                <p class="subtitle">Select a command type and build syntactically correct outputs.</p>
+                
+                <div class="input-group">
+                    <label>Command Type</label>
+                    <select id="cmdType" onchange="updateCmdForm()">
+                        <option value="give">/give (Items & Blocks)</option>
+                        <option value="summon">/summon (Entities & Mobs)</option>
+                        <option value="tp">/tp (Teleportation)</option>
+                        <option value="effect">/effect (Potions & Statuses)</option>
+                    </select>
+                </div>
+
+                <div class="grid-3">
                     <div class="input-group">
-                        <label>Target Selector</label>
-                        <input type="text" id="cmdTarget" value="@p">
+                        <label id="lblCmdP1">Target Player</label>
+                        <input type="text" id="cmdP1" value="@p">
                     </div>
                     <div class="input-group">
-                        <label>Item ID</label>
-                        <input type="text" id="cmdItem" value="diamond_sword">
+                        <label id="lblCmdP2">Item ID</label>
+                        <input type="text" id="cmdP2" value="diamond_sword">
+                    </div>
+                    <div class="input-group" id="groupCmdP3">
+                        <label id="lblCmdP3">Amount</label>
+                        <input type="text" id="cmdP3" value="1">
                     </div>
                 </div>
-                <div class="grid-2">
-                    <div class="input-group">
-                        <label>Quantity</label>
-                        <input type="number" id="cmdAmount" value="1">
-                    </div>
-                    <div class="input-group">
-                        <label>Custom Name</label>
-                        <input type="text" id="cmdName" placeholder="(optional)">
-                    </div>
-                </div>
-                <button class="btn-primary" onclick="generateCommand()">Compile Code</button>
+
+                <button class="btn-primary" onclick="generateCommand()">Compile Output</button>
                 <div class="output-box" id="commandOutput">_ waiting for input...</div>
             </div>
 
@@ -442,15 +383,6 @@
                     _ Awaiting query...
                 </div>
             </div>
-
-            <div id="seed" class="tool-section card">
-                <h2>Seed Map <span class="badge">API Required</span></h2>
-                <p class="subtitle">Awaiting map rendering module integration.</p>
-            </div>
-            <div id="skins" class="tool-section card">
-                <h2>Skins API <span class="badge">API Required</span></h2>
-                <p class="subtitle">Awaiting Mojang auth module integration.</p>
-            </div>
         </main>
     </div>
 
@@ -463,23 +395,91 @@
             document.querySelector(`[onclick="openTool('${toolId}')"]`).classList.add('active');
         }
 
-        // Logic
+        // 1. Advanced MOTD Logic
+        function insertMotd(code) {
+            // Inserts into whichever input is currently active, defaulting to Line 1
+            const activeEl = document.activeElement;
+            const target = (activeEl.id === 'motdLine2') ? document.getElementById('motdLine2') : document.getElementById('motdLine1');
+            target.value += code;
+            target.focus();
+        }
+
         function generateMOTD() {
-            const text = document.getElementById('motdInput').value;
-            const color = document.getElementById('motdColor').value;
-            document.getElementById('motdOutput').innerHTML = `<span class="highlight">motd=</span>${color}${text.replace(/ /g, '\\u0020')}`;
+            const l1 = document.getElementById('motdLine1').value;
+            const l2 = document.getElementById('motdLine2').value;
+            
+            // Replaces & with \u00A7 and spaces with \u0020 for server.properties
+            const formatStr = (str) => {
+                return str.replace(/&/g, '\\u00A7').replace(/ /g, '\\u0020');
+            };
+
+            let out = "<span class='highlight'>motd=</span>";
+            if(l1) out += formatStr(l1);
+            if(l1 && l2) out += "\\n"; // Newline character for server.properties
+            if(l2) out += formatStr(l2);
+            
+            if(!l1 && !l2) out = "_ waiting for input...";
+
+            document.getElementById('motdOutput').innerHTML = out;
+        }
+
+        // 2. Dynamic Command Builder Logic
+        function updateCmdForm() {
+            const type = document.getElementById('cmdType').value;
+            const lbl1 = document.getElementById('lblCmdP1');
+            const lbl2 = document.getElementById('lblCmdP2');
+            const lbl3 = document.getElementById('lblCmdP3');
+            const p1 = document.getElementById('cmdP1');
+            const p2 = document.getElementById('cmdP2');
+            const p3 = document.getElementById('cmdP3');
+            const group3 = document.getElementById('groupCmdP3');
+
+            group3.style.display = 'block'; // Show by default
+
+            if (type === 'give') {
+                lbl1.innerText = "Target Player"; p1.value = "@p";
+                lbl2.innerText = "Item ID"; p2.value = "diamond_sword";
+                lbl3.innerText = "Amount"; p3.value = "1";
+            } else if (type === 'summon') {
+                lbl1.innerText = "Entity ID"; p1.value = "zombie";
+                lbl2.innerText = "Coordinates"; p2.value = "~ ~ ~";
+                lbl3.innerText = "NBT Tag (Optional)"; p3.value = "{NoAI:1b}";
+            } else if (type === 'tp') {
+                lbl1.innerText = "Target(s)"; p1.value = "@a";
+                lbl2.innerText = "Destination (X Y Z or Player)"; p2.value = "0 64 0";
+                group3.style.display = 'none'; // Not needed for simple TP
+            } else if (type === 'effect') {
+                lbl1.innerText = "Target Player"; p1.value = "@p";
+                lbl2.innerText = "Effect ID"; p2.value = "speed";
+                lbl3.innerText = "Duration (Seconds)"; p3.value = "60";
+            }
         }
 
         function generateCommand() {
-            const target = document.getElementById('cmdTarget').value || '@p';
-            let item = document.getElementById('cmdItem').value.trim().toLowerCase() || 'stone';
-            const amount = document.getElementById('cmdAmount').value || '1';
-            const name = document.getElementById('cmdName').value.trim();
-            if (!item.startsWith('minecraft:')) item = 'minecraft:' + item;
-            let nbt = name ? `[custom_name='{"text":"${name}","italic":false}']` : "";
-            document.getElementById('commandOutput').innerHTML = `<span class="highlight">/give</span> ${target} ${item}${nbt} ${amount}`;
+            const type = document.getElementById('cmdType').value;
+            let p1 = document.getElementById('cmdP1').value.trim();
+            let p2 = document.getElementById('cmdP2').value.trim();
+            let p3 = document.getElementById('cmdP3').value.trim();
+            
+            let finalCmd = `<span class='highlight'>/${type}</span>`;
+
+            if (type === 'give') {
+                if (!p2.startsWith('minecraft:')) p2 = 'minecraft:' + p2;
+                finalCmd += ` ${p1} ${p2} ${p3}`;
+            } else if (type === 'summon') {
+                if (!p1.startsWith('minecraft:')) p1 = 'minecraft:' + p1;
+                finalCmd += ` ${p1} ${p2} ${p3}`;
+            } else if (type === 'tp') {
+                finalCmd += ` ${p1} ${p2}`;
+            } else if (type === 'effect') {
+                if (!p2.startsWith('minecraft:')) p2 = 'minecraft:' + p2;
+                finalCmd += ` give ${p1} ${p2} ${p3}`; // syntax: /effect give <target> <effect> <duration>
+            }
+
+            document.getElementById('commandOutput').innerHTML = finalCmd;
         }
 
+        // Standard logic for remaining tools
         function calculateSens() {
             const dpi = parseFloat(document.getElementById('mouseDpi').value);
             const sens = parseFloat(document.getElementById('gameSens').value);
