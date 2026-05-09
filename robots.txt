@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://utility.crafttech.cl/sitemap.xml
